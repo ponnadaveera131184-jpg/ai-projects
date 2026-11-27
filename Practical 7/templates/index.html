@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaussian Naive Bayes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Student Performance Prediction</h1>
+    <p class="subtitle">Gaussian Naive Bayes Classification</p>
+
+    <form method="POST">
+        <label>Study Hours per Day</label>
+        <input type="number" name="hours" min="0" max="24"
+               step="0.1" placeholder="Example: 6" required>
+
+        <label>Attendance Percentage</label>
+        <input type="number" name="attendance" min="0" max="100"
+               step="0.1" placeholder="Example: 80" required>
+
+        <label>Previous Exam Marks</label>
+        <input type="number" name="marks" min="0" max="100"
+               step="0.1" placeholder="Example: 75" required>
+
+        <button type="submit">Predict Performance</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <h2>Prediction Result</h2>
+        <p>{{ result }}</p>
+
+        {% if probability is not none %}
+        <p>Model Confidence: {{ probability }}%</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="info">
+        <p><strong>Algorithm:</strong> Gaussian Naive Bayes</p>
+        <p><strong>Inputs:</strong> Study Hours, Attendance and Previous Marks</p>
+    </div>
+</div>
+
+</body>
+</html>
