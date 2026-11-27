@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Tic-Tac-Toe AI</h1>
+    <p class="subtitle">Minimax Algorithm with Alpha-Beta Pruning</p>
+
+    <h2>{{ message }}</h2>
+
+    <form method="POST">
+        <div class="board">
+            {% for cell in board %}
+                <button
+                    type="submit"
+                    name="move"
+                    value="{{ loop.index0 }}"
+                    class="cell {{ 'x' if cell == 'X' else 'o' if cell == 'O' else '' }}"
+                    {% if cell != ' ' or game_over %}disabled{% endif %}>
+                    {{ cell if cell != ' ' else '' }}
+                </button>
+            {% endfor %}
+        </div>
+
+        {% for cell in board %}
+            <input type="hidden" name="board" value="{{ cell }}">
+        {% endfor %}
+    </form>
+
+    <form method="POST">
+        <button type="submit" name="action" value="reset" class="reset">
+            Restart Game
+        </button>
+    </form>
+
+    <div class="instructions">
+        <p><strong>You:</strong> X</p>
+        <p><strong>Computer:</strong> O</p>
+        <p>Play against an AI that uses Minimax and Alpha-Beta Pruning.</p>
+    </div>
+</div>
+
+</body>
+</html>
