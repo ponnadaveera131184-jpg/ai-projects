@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A* 8 Puzzle Solver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>A* Search – 8 Puzzle Solver</h1>
+    <p>Solve the 8-puzzle using A* search algorithm.</p>
+
+    <form method="POST">
+        <label>Enter puzzle numbers (0 represents blank):</label>
+        <input type="text" name="board"
+               placeholder="1 2 3 4 0 6 7 5 8"
+               required>
+
+        <label>Select Heuristic:</label>
+        <select name="heuristic">
+            <option value="manhattan" {% if method == 'manhattan' %}selected{% endif %}>
+                Manhattan Distance
+            </option>
+            <option value="misplaced" {% if method == 'misplaced' %}selected{% endif %}>
+                Misplaced Tiles
+            </option>
+        </select>
+
+        <button type="submit">Solve Puzzle</button>
+    </form>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if solution %}
+        <h2>Solution Found!</h2>
+        <p>Total Moves: {{ solution|length - 1 }}</p>
+        <p>Explored States: {{ explored }}</p>
+
+        <div class="solution">
+            {% for state in solution %}
+                <div class="step">
+                    <h3>Step {{ loop.index0 }}</h3>
+                    <div class="board">
+                        {% for number in state %}
+                            <div class="tile {% if number == 0 %}empty{% endif %}">
+                                {{ number if number != 0 else '' }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
