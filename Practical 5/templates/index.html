@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rule-Based Expert System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Rule-Based Expert System</h1>
+    <p class="subtitle">Internet Connection Troubleshooting Expert</p>
+
+    <form method="POST">
+
+        <label>1. Is your internet connection working?</label>
+        <select name="internet" required>
+            <option value="">Select Answer</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+
+        <label>2. Is Wi-Fi enabled on your device?</label>
+        <select name="wifi" required>
+            <option value="">Select Answer</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+
+        <label>3. Does another device connect to the internet?</label>
+        <select name="other_device" required>
+            <option value="">Select Answer</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+
+        <label>4. Is your router switched on?</label>
+        <select name="router" required>
+            <option value="">Select Answer</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+
+        <button type="submit">Get Diagnosis</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <h2>Expert System Result</h2>
+        <p>{{ result }}</p>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
