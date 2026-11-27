@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Practical 11 - Forward Chaining</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Propositional Logic</h1>
+    <h2>Forward Chaining Inference System</h2>
+
+    <p>Select the initial facts:</p>
+
+    <form method="POST">
+        <div class="facts">
+            <label>
+                <input type="checkbox" name="facts" value="rain"
+                {% if 'rain' in selected_facts %}checked{% endif %}>
+                Rain
+            </label>
+
+            <label>
+                <input type="checkbox" name="facts" value="cloudy"
+                {% if 'cloudy' in selected_facts %}checked{% endif %}>
+                Cloudy Weather
+            </label>
+
+            <label>
+                <input type="checkbox" name="facts" value="sprinkler_on"
+                {% if 'sprinkler_on' in selected_facts %}checked{% endif %}>
+                Sprinkler is ON
+            </label>
+
+            <label>
+                <input type="checkbox" name="facts" value="traffic_busy"
+                {% if 'traffic_busy' in selected_facts %}checked{% endif %}>
+                Traffic is Busy
+            </label>
+        </div>
+
+        <button type="submit">Run Forward Chaining</button>
+    </form>
+
+    {% if submitted %}
+    <div class="result">
+        <h2>Final Facts</h2>
+
+        {% if final_facts %}
+            <ul>
+                {% for fact in final_facts %}
+                    <li>{{ fact }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No facts were selected.</p>
+        {% endif %}
+
+        <h2>Inference Steps</h2>
+
+        {% if steps %}
+            <ol>
+                {% for step in steps %}
+                    <li>{{ step }}</li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>No new facts were inferred.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
