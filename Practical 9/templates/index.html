@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocks World Planning</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Blocks World Planning</h1>
+    <p class="subtitle">AI Planning Problem</p>
+
+    <form method="POST">
+        <label>Initial Block Arrangement</label>
+        <input type="text" name="start"
+               placeholder="A B C" required>
+
+        <label>Goal Block Arrangement</label>
+        <input type="text" name="goal"
+               placeholder="C B A" required>
+
+        <button type="submit">Generate Plan</button>
+    </form>
+
+    {% if error %}
+    <div class="error">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    {% if steps %}
+    <div class="result">
+        <h2>Planning Steps</h2>
+
+        {% for step in steps %}
+        <div class="step">
+            <span>{{ loop.index }}.</span> {{ step }}
+        </div>
+        {% endfor %}
+
+        <h3>Final Arrangement</h3>
+        <div class="blocks">
+            {% for block in final_state %}
+            <div class="block">{{ block }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="info">
+        <p><strong>Concept:</strong> AI Planning</p>
+        <p><strong>Input:</strong> Initial and Goal States</p>
+        <p><strong>Output:</strong> Sequence of planning steps</p>
+    </div>
+</div>
+
+</body>
+</html>
