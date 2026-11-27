@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value Iteration Grid World</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Value Iteration Grid World</h1>
+    <p class="subtitle">Reinforcement Learning Algorithm</p>
+
+    <div class="legend">
+        <span>🟩 Goal</span>
+        <span>⬛ Obstacle</span>
+        <span>⬜ Normal State</span>
+    </div>
+
+    <div class="grid">
+        {% for r in range(rows) %}
+            {% for c in range(cols) %}
+                {% set state = (r, c) %}
+
+                <div class="cell
+                    {% if state == goal %}goal
+                    {% elif state == obstacle %}obstacle
+                    {% endif %}">
+
+                    <strong>({{ r }},{{ c }})</strong>
+
+                    {% if state == goal %}
+                        <span>GOAL</span>
+                    {% elif state == obstacle %}
+                        <span>BLOCKED</span>
+                    {% elif show_result %}
+                        <span>{{ policy[state] }}</span>
+                        <small>V = {{ "%.2f"|format(values[state]) }}</small>
+                    {% else %}
+                        <span>STATE</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <form method="POST">
+        <button type="submit">Run Value Iteration</button>
+    </form>
+
+    {% if show_result %}
+    <div class="result">
+        <h2>Algorithm Results</h2>
+        <p>Converged in {{ iterations }} iterations.</p>
+        <p>Discount Factor: {{ 0.9 }}</p>
+        <p>Goal Reward: +10</p>
+        <p>Step Reward: -1</p>
+    </div>
+    {% endif %}
+
+    <div class="info">
+        <p><strong>Objective:</strong> Find the optimal policy to reach the goal.</p>
+        <p><strong>Method:</strong> Bellman Optimality Equation.</p>
+    </div>
+</div>
+
+</body>
+</html>
