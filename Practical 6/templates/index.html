@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSP Map Coloring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>CSP Map Coloring</h1>
+    <p class="subtitle">Backtracking Algorithm</p>
+
+    <h3>Map Regions</h3>
+
+    <div class="map">
+        {% for node in graph %}
+        <div class="region"
+             style="background-color: {{ assignment.get(node, '#dce2e8') }};">
+            {{ node }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <form method="POST">
+        <button type="submit">Run Backtracking</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <h2>{{ result }}</h2>
+
+        {% for node, color in assignment.items() %}
+        <p>Region {{ node }}: <strong>{{ color }}</strong></p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="info">
+        <p><strong>Objective:</strong> Color adjacent regions differently.</p>
+        <p><strong>Available Colors:</strong> Red, Green, Blue</p>
+    </div>
+</div>
+
+</body>
+</html>
